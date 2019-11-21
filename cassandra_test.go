@@ -325,12 +325,12 @@ func TestPagingWithBind(t *testing.T) {
 		t.Fatal("create table:", err)
 	}
 	for i := 0; i < 100; i++ {
-		if err := session.Query("INSERT INTO paging_bind (id,val) VALUES (?,?)", 1,i).Exec(); err != nil {
+		if err := session.Query("INSERT INTO paging_bind (id,val) VALUES (?,?)", 1, i).Exec(); err != nil {
 			t.Fatal("insert:", err)
 		}
 	}
 
-	q := session.Query("SELECT val FROM paging_bind WHERE id = ? AND val < ?",1, 50).PageSize(10)
+	q := session.Query("SELECT val FROM paging_bind WHERE id = ? AND val < ?", 1, 50).PageSize(10)
 	iter := q.Iter()
 	var id int
 	count := 0
@@ -2783,7 +2783,7 @@ func TestDiscoverViaProxy(t *testing.T) {
 	// This (complicated) test tests that when the driver is given an initial host
 	// that is infact a proxy it discovers the rest of the ring behind the proxy
 	// and does not store the proxies address as a host in its connection pool.
-	// See https://github.com/gocql/gocql/issues/481
+	// See https://github.com/mantix4/gocql/issues/481
 	clusterHosts := getClusterHosts()
 	proxy, err := net.Listen("tcp", "localhost:0")
 	if err != nil {
